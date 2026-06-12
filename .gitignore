@@ -1,3 +1,5 @@
 build
 pong
-
+pongserver/main.o
+pongserver/server
+raylib

@@ -12,7 +12,6 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 
-
 #define PORT "3490"
 #define MAXDATASIZE 100
 
@@ -31,8 +30,7 @@ void *get_in_addr(struct sockaddr *sa)
 
 int main(int argc, char *argv[])
 {
-	
-// game vars
+	// game vars
 	struct ball b; // fold here
 	b.pos_x = 100;
 	b.pos_y = 100;
@@ -47,8 +45,6 @@ int main(int argc, char *argv[])
 	pad1.pos_x = 20;
 	pad1.pos_y = 20;
 	struct paddle pad2 = pad1;
-	pad2.pos_x = GetScreenWidth() - 40;//(pad1.pos_x * 2);
-	
 	int player_id = 0; // is the client p1 or p2?
 	
 	
@@ -124,9 +120,9 @@ int main(int argc, char *argv[])
 
 	// Don't open window until connected
 	SetConfigFlags(FLAG_VSYNC_HINT);
-	InitWindow(800, 600, "Pong");
+	InitWindow(SCR_WIDTH, SCR_HEIGHT, "Pong");
 	
-	pad2.pos_x = GetScreenWidth() - 40;//(pad1.pos_x * 2);
+	pad2.pos_x = SCR_WIDTH - 40;//(pad1.pos_x * 2);
 	while (!WindowShouldClose())
 	{
 		// Send State
@@ -153,16 +149,12 @@ int main(int argc, char *argv[])
 
 		while (numbytes < sizeof(GameState))
 		{
-			printf("START RECIEVING\n");
-			fflush(stdout);
 			if ((numbytes += recv(sockfd, data, sizeof(GameState), 0)) == -1)
 			{
 				perror("recv");
 				// dont just exit out 
 				// WARN: !! RUNNING WITH AN ERROR COULD CAUSE WEIRD THINGS !!
 			}
-			printf("End recv");
-			fflush(stdout);
 		}
 
 		GameState state;
@@ -170,8 +162,9 @@ int main(int argc, char *argv[])
 		free(data); // gotta remember this bro D:
 		pad1.pos_y = state.player_y;
 		pad2.pos_y = state.player2_y;
+		b.pos_x = state.ball_x;
+		b.pos_y = state.ball_y;
 
-		printf("Player2 pos x: %d, y: %d\n", pad2.pos_x, pad2.pos_y);
 		// Update game state
 		float dt = GetFrameTime();
 		update_game(&b, &pad1, &pad2, dt, player_id);

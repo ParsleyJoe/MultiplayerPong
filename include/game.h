@@ -1,9 +1,13 @@
 #ifndef GAME
 #define GAME
 
-
 #include <raylib.h>
-
+#define SCR_WIDTH 800
+#define SCR_HEIGHT 600
+#define PADDLE_WIDTH 30
+#define PADDLE_HEIGHT 100
+#define PADDLE1_X 20
+#define PADDLE2_X SCR_WIDTH - 40;
 
 struct ball
 {

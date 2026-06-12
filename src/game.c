@@ -2,12 +2,12 @@
 
 void update_game(struct ball *b, struct paddle *p, struct paddle *p2, float dt, int player_id)
 {
-	update_ball(b, dt);
+//	update_ball(b, dt);
 	if (player_id == 1)
 		update_paddle(p, dt);
 	else
 		update_paddle(p2, dt);
-	check_paddle_collision(p, b);
+//	check_paddle_collision(p, b);
 }
 
 void draw_game(struct ball *b, struct paddle *p, struct paddle *p2)
