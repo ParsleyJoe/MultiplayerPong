@@ -13,8 +13,10 @@ Simple pong game made to run on LAN using Unix sockets
 
 ## Running
 1. Run server
+    ```
     cd pongserver
     ./server
+    ```
 2. Run clients
     ```
     ./pong hostname
